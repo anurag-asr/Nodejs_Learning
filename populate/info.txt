@@ -1,0 +1,2 @@
+Here we use Address schema for the reference of Student Schema so student collection store the objectId of address inside it with the help of 
+populate method we extract this  
