@@ -1,0 +1,18 @@
+db.users.aggregate([
+    {
+        $match:{$gt:200},
+    },
+    {
+        $count:"total number of documents"
+    }
+])
+
+
+name:"natasa",
+age:19,
+id:1,
+sec:B,
+"subject":[
+    "physics","maths","chemistry","biology"
+]
+
