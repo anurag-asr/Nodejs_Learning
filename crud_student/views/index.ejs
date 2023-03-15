@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%=title%>
+    </title>
+</head>
+
+<body>
+    <form method="post" action="/student" enctype="multipart/form-data">
+        <div>
+            <label for="name">FirstName</label>
+            <input type="text" name="firstname" placeholder="enter Your FirstName" required>
+        </div>
+        <div>
+            <label for="lastname">LastName</label>
+            <input type="text" name="lasttname" placeholder="enter Your lasttName" required>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" placeholder="enter Your Email" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="required password" required>
+        </div>
+        <div>
+            <label for="subname">Subject name</label>
+            <select name="subname" multiple>
+                <option value='maths'>Maths</option>
+                <option value='science'>Science</option>
+                <option value='social'>Social</option>
+                <option value='history'>History</option>
+            </select>
+        </div>
+        <div>
+            <label for="image">Select Images</label>
+            <input type="file" name="image" required>
+        </div>
+        <div>
+            <label for="image">Description</label>
+            <textarea rows="10" cols="20" name="description">
+    Description!
+  </textarea>
+        </div>
+        <div>
+            <input type="submit" name="submit" value="Add user" required>
+        </div>
+    </form>
+</body>
+
+</html>

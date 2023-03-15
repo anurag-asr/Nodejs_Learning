@@ -1,0 +1,123 @@
+###The $lookup operator is an aggregation operator or an aggregation stage, 
+which is used to join a document from one collection to a document of another collection of the same database based on some queries. 
+Both the collections should belong to the same databases.
+
+
+###How $lookup works?
+We have two collections, input collection (the collection on which $lookup is performed)
+and from collection (the collection from which we take documents to join it to documents of input collection).
+
+### $lookup takes selected documents from the “from collection” based on some queries and then attaches them to the document of “input collection”
+ in a separate array field. It is just like a left outer join of SQL.
+
+
+mergeClassessAndMembers
+ [
+  {
+    "_id": "641013b1fbdb1a8b2a900a8c",
+    "title": "Reading is ...",
+    "enrollmentlist": [
+      "giraffe2",
+      "pandabear",
+      "artie"
+    ],
+    "days": [
+      "M",
+      "W",
+      "F"
+    ],
+    "__v": 0,
+    "enrolle_Info": [
+      {
+        "_id": "641012bc99c8236690819eb8",
+        "name": "artie",
+        "joined": "2016-05-01T00:00:00.000Z",
+        "status": "A",
+        "__v": 0
+      },
+      {
+        "_id": "641012bc99c8236690819ebd",
+        "name": "giraffe2",
+        "joined": "2018-12-01T00:00:00.000Z",
+        "status": "D",
+        "__v": 0
+      },
+      {
+        "_id": "641012bc99c8236690819ebc",
+        "name": "pandabear",
+        "joined": "2018-12-01T00:00:00.000Z",
+        "status": "A",
+        "__v": 0
+      }
+    ]
+  },
+  {
+    "_id": "641013b1fbdb1a8b2a900a8d",
+    "title": "But Writing ...",
+    "enrollmentlist": [
+      "giraffe1",
+      "artie"
+    ],
+    "days": [
+      "T",
+      "F"
+    ],
+    "__v": 0,
+    "enrolle_Info": [
+      {
+        "_id": "641012bc99c8236690819eb8",
+        "name": "artie",
+        "joined": "2016-05-01T00:00:00.000Z",
+        "status": "A",
+        "__v": 0
+      },
+      {
+        "_id": "641012bc99c8236690819eba",
+        "name": "giraffe1",
+        "joined": "2017-10-01T00:00:00.000Z",
+        "status": "A",
+        "__v": 0
+      }
+    ]
+  }
+]
+
+
+MERGING CLASSESS AND MEMBERS 
+{
+  "count": 2,
+  "data": [
+    {
+      "_id": "641004780b88cb28148f00c4",
+      "item": "almonds",
+      "price": 12,
+      "quantity": 2,
+      "__v": 0,
+      "inventory_docs": [
+        {
+          "_id": "6410059d413ddfeb63eba62d",
+          "sku": "almonds",
+          "description": "product 1",
+          "instock": 120,
+          "__v": 0
+        }
+      ]
+    },
+    {
+      "_id": "641004780b88cb28148f00c5",
+      "item": "pecans",
+      "price": 20,
+      "quantity": 1,
+      "__v": 0,
+      "inventory_docs": [
+        {
+          "_id": "6410059d413ddfeb63eba630",
+          "sku": "pecans",
+          "description": "product 4",
+          "instock": 70,
+          "__v": 0
+        }
+      ]
+    }
+  ]
+}
