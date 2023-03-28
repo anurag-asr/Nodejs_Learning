@@ -1,5 +1,73 @@
 // const { ReturnDocument } = require("mongodb")
-const {order,inventory,classess,members} =require("../Model/model")
+const { default: mongoose } = require("mongoose");
+const {order,inventory,classess,members,stduentDetails,days,leave} =require("../Model/model")
+
+exports.getstudents=async(req,res)=>{
+    const {id}=req.params;
+    let data=await stduentDetails.aggregate([
+        {
+            $lookup:{
+                from: "leaves",
+                localField: "_id",
+                foreignField: "name",
+                pipeline:[{$lookup:{
+                    from:'days',
+                    localField:'day',
+                    foreignField:'_id',
+                    // pipeline:[{$project:{day:1,_id:0}}],
+                    as:'day'
+                }},
+                // {$unwind:'$day'},
+                // {$project:{_id:1,'day':'$day.day',date:1}}
+            ],
+                as: "leave"
+            }
+        },
+        {
+            $project:{_id:1,name:1,place:1,age:1,leave:1}
+        }
+    ])
+    // .exec()  
+    // let x=await leave.populate(data, {path: 'leaves_data.day'})
+    res.send(data)
+
+}
+
+exports.leaveDetails=async(req,res)=>{
+    const name_id=req.body.name_id;
+    const day_id=req.body.day_id;
+    let name=await stduentDetails.findById(name_id);
+    let day=await days.findById(day_id)
+    let date=new Date();
+    let obj={
+        name:name._id,day:day._id,date
+    };
+    const data=await leave.create(obj)
+    res.send(data)
+}
+
+exports.studentCreate=async(req,res)=>{
+    const data=await stduentDetails.create(req.body)
+    res.send(req.body)
+}
+
+
+exports.createDays=async(req,res)=>{
+    const data=await days.create(
+        {"day" : "monday"},
+        {"day" : "tuesday"},
+        {"day" : "wednesday"},
+        {"day" : "thursday"},
+        {"day" : "friday"},
+        {"day" : "satuday"},
+        {"day" : "sunday"}
+    )
+    res.send(data)
+}
+
+
+
+
 
 exports.createOrder=async(req,res)=>{
 const data=await order.create(
@@ -20,7 +88,7 @@ const data=await inventory.create(
 return res.json(data)
 }
 
-// Perform a Single Equality Join with $looku
+
 exports.fetchOrderData=async(req,res)=>{
     const data=await order.aggregate([
         {
@@ -36,7 +104,7 @@ exports.fetchOrderData=async(req,res)=>{
     return res.json({count:data.length,data})
 };
 
-// Use $lookup with an Array
+
 exports.createMembers=async(req,res)=>{
     const data=await members.create(
    {name: "artie", joined: new Date("2016-05-01"), status: "A" },
@@ -73,5 +141,3 @@ exports.mergeClassessAndMembers=async(req,res)=>{
     );
     res.json(data);
 }
-
-// use $lookup with $mergeObjects
